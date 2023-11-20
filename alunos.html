@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>alunos</title>
+</head>
+<body>
+    
+    <script>
+       var cadastrar = 1 
+
+        while (cadastrar == 1) {
+            var nota = window.prompt('Insira sua nota: ')
+            var notas = 0
+            notas++
+            var sexo = window.prompt('Insira seu sexo (digite 1 para masculino e 2 para feminino): ')
+            var mulheres = 0
+            var homens = 0
+            var soma = 0
+            var m7 = 0 
+            var mh = 0
+            cadastrar = window.prompt('Deseja cadastrar outra nota? (se sim, digite 1) ')
+            soma = soma + nota
+
+            if (sexo == 1) {
+                homens++ 
+            } else if (sexo == 2) {
+                mulheres++
+            } else {
+                window.alert('Insira um dos valores mencionados por favor.')
+            }
+            
+            if (nota >= 7 && sexo == 2) {
+                m7++
+            }
+
+            if (sexo == 1 && mh < nota){
+                mh = nota 
+            }
+            
+            media = soma / notas 
+        }
+
+        console.log(media)
+        console.log(homens)
+        console.log(m7)
+        console.log(mh) 
+        
+
+    </script>
+</body>
+</html>
