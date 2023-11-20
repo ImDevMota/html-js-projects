@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca</title>
+</head>
+<body>
+    <script>
+        
+
+        class Livro {
+            titulo
+            autor
+            editora
+            ano_de_publicação
+            disponibilidade = true
+
+
+        }
+
+        let livros = []
+    
+
+        livros[0] = new Livro()
+        livros[0].titulo = "Harry Potter"
+        livros[0].autor = "J.K"
+        livros[0].editora = "Rocco"
+        livros[0].ano_de_publicação = 1997
+        livros[0].disponibilidade 
+
+        livros [1] = new Livro()
+        livros[1].titulo = "Percy Jackson"
+        livros[1].autor = "Rick Riordan"
+        livros[1].editora = "Intrínseca"
+        livros[1].ano_de_publicação = 2005
+        livros[1].disponibilidade 
+        
+        livros[2] = new Livro()
+        livros[2].titulo = "Psicopata Americano"
+        livros[2].autor = "Bret Easton Ellis"
+        livros[2].editora = "Vintage Books"
+        livros[2].ano_de_publicação = 1991
+        livros[2].disponibilidade 
+        
+        let cont = livros.length
+
+        class Biblioteca {
+            nome
+            endereço
+            telefone
+
+            buscarLivro (nome_livro, livros, cont) {
+                let nome = nome_livro
+                let res
+
+                for (let c = 0; c <= cont; c++){
+                    if (nome == livros[c].titulo) {
+                        console.log(`O livro buscado é ${livros[c].titulo}, seu autor é ${livros[c].autor}, sua editora é ${livros[c].editora}, o ano de publicação é ${livros[c].ano_de_publicação} e ele está disponível: ${livros[c].disponibilidade}`)
+                        res = true
+                        break
+                    } else {
+                        res = false 
+                    }
+                }
+
+                if (res == false){
+                        console.log("livro não encontrado")
+                    }
+            }
+
+            emprestarLivro (nome_livro, livros, cont) {
+                let nome = nome_livro                
+                let dis
+                let res 
+
+                for (let c = 0; c <= cont; c++){
+                    dis = livros[c].disponibilidade
+
+                    if (nome == livros[c].titulo && dis == true){
+                        res = true
+                        livros[c].disponibilidade = false 
+                        break
+                    } else {
+                        res = false
+                    }
+                }
+                console.log(res)
+                return(res)
+
+            }
+
+            devolverLivro (nome_livro, livros, disponibilidade, cont){
+                let nome = nome_livro 
+                let dis = disponibilidade
+                let res 
+
+                for (let c = 0; c <= cont; c++){
+                    if (nome == livros[c].titulo && dis == false){
+                        dis = true
+                        res = true 
+                        return(res, dis)
+                        break
+                    } else {
+                        res = false
+                    }
+                }
+                return(res)
+            }
+        }
+
+        let biblioteca = new Biblioteca()
+        biblioteca.nome = "Biblioteca Fortal"
+        biblioteca.endereço = "Fortaleza-CE"
+        biblioteca.telefone = 88993245687
+
+        busca = biblioteca.buscarLivro("Psicopata Americano", livros, cont)
+        emprestimo = biblioteca.emprestarLivro("Harry Potter", livros, cont)
+        console.log(`O resultado do empréstimo foi: ${emprestimo}`)
+        
+        emprestimo = biblioteca.emprestarLivro("Harry Potter", livros, cont)
+        console.log(`O resultado do empréstimo foi: ${emprestimo}`)
+
+    </script>
+</body>
+</html>
