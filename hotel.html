@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel</title>
+</head>
+<body>
+    
+    <script>
+        //Hotel
+        let idh = []
+        let nomeh = []
+        let cath = []
+        let endh = []
+        let telh = []
+        //Reserva
+        let hot = []
+        let idr = []
+        let nomer = []
+        let diae = []
+        let dias = []
+
+        function Gerar_Idh(cont) {
+            let id = 1000
+            for (let ct = 0; ct < cont; ct++) {
+                id = id + 2
+            }
+            return (id)
+        }
+
+        function Gerar_Idr(cont) {
+            let id = 1001
+            for (let ct = 0; ct < cont; ct++) {
+                id = id + 3
+                if (id/2) {
+                    id++ 
+                } 
+            }
+            return (id)
+        }
+
+        function verify_dia(dia_entrada, dia_saida){
+            let res 
+            if (dia_entrada > dia_saida) {
+                res = 0
+            } else {
+                res = 1 
+            }
+            return(res)
+        }
+
+        function search_id(hotel_id, all_id, cont) {
+            let id = hotel_id
+            let res 
+
+            for (let ct = 1; ct <= cont; ct++){
+                
+                if (id == all_id[ct]){
+                    res = ct
+                    break
+                } else {
+                    res = 0
+                }
+            }
+            return(res)
+        }
+
+        function search_p(nome_res, all_nome, cont) {
+            let n = nome_res
+            let res 
+
+            for (let ct = 1; ct <= cont; ct++) {
+
+                if (n == all_nome[ct]){
+                    res = ct 
+                    break
+                } else {
+                    res = 0 
+                }
+            }
+            return(res)
+        }
+
+        function search_cat(cat_hotel, all_cat, cont){
+            let cat = cat_hotel
+            let res = []
+
+            for (let ct = 1; ct <= cont; ct++){
+
+                if (cat == all_cat[ct]){
+                    res[ct] = ct
+                } else {
+                    res[ct] = 0
+                }
+            }
+            return(res)
+        }
+
+        function atual_tel(tel_hotel, all_tel, id_tel, all_id, cont){
+            let tel = tel_hotel
+            let res 
+
+            for (let ct = 1; ct <= cont; ct++){
+                
+                if(id_tel == all_id[ct]){
+                    res = ct
+                    all_tel[ct] = tel
+                    break
+                } else {
+                    res = 0
+                }
+            }
+            return(res)
+        }
+
+        let res1 = 'sim'
+        let res2 
+        let res3 = 'não'
+        let res4
+        let res5
+        let res6 = 'não'
+        let pid 
+        let lid
+        let check 
+        let sp
+        var ret
+        var c = 0        
+        var cr = 0
+        let vf 
+        let nr 
+        let rp
+        let cl
+        let rt 
+        let it
+        let tl
+        
+        while (res1 != 'não') {
+            res1 = window.prompt('Deseja cadastrar um hotel?')
+
+            if (res1 == 'sim') {
+                c++
+                idh[c] = Gerar_Idh(c)
+                nomeh[c] = window.prompt('Insira um Nome para o hotel: ')
+                cath[c] = window.prompt('Insira uma Categoria para o hotel: ')
+                endh[c] = window.prompt('Insira um Endereço para o hotel: ')
+                telh[c] = window.prompt('Insira um Telefone para o hotel: ')
+
+            }
+            
+            res2 = window.prompt('Deseja fazer uma reserva?')
+
+            if (res2 == 'sim' && c > 0){
+                cr++
+                hot[cr] = window.prompt('Em qual hotel você deseja fazer a reserva? ')
+
+                for (let ct = 0; ct <= c; ct++){
+                    if(hot[cr] == nomeh[ct]){
+                        idr[cr] = Gerar_Idr(cr)
+                        nomer[cr] = window.prompt('Insira o Nome do Responsável pela Reserva: ')
+                        diae[cr] = window.prompt('Insira o dia de entrada: ')
+                        dias[cr] = window.prompt('Insira o dia de saída: ')
+                        let diaen = Number(diae[cr])
+                        let diasa = Number(dias[cr])
+                        check = verify_dia(diaen, diasa)
+
+                        while (check == 0){ 
+                            console.log('O dia de entrada não pode ser maior que o dia da saída!')
+                            diae[cr] = window.prompt('Insira novamente o dia de entrada: ')
+                            dias[cr] = window.prompt('Insira novamente o dia de saída: ')
+                            diaen = Number(diae[cr])
+                            diasa = Number(dias[cr])
+                            check = verify_dia(diaen, diasa)
+                        }
+                        vf = 1
+                        break
+                    } else {
+                        vf = 0 
+                    }
+                } 
+
+                if (vf == 0) {
+                    cr--
+                    console.log('Erro, não foi possível encontrar hotel com esse nome.')
+                }
+                
+            } else if (res2 == 'sim' && c == 0) {
+                console.log('Erro, não há Hotéis cadastrados!')
+            }
+
+            res3 = window.prompt('Deseja ver as reservas do hotel? ')
+
+            if (res3 == 'sim' && cr > 0) {
+                pid = window.prompt('Insira o ID do Hotel: ')
+                lid = Number(pid)
+                ret = search_id(lid, idh, c)
+                
+                if (ret > 0) {
+                    
+                    for (let cont = 0; cont <= cr; cont++){
+                        if(hot[cont] == nomeh[ret]){
+                                console.log(`Nome do hotel: ${hot[cont]}, endereço: ${endh[ret]}, dia de entrada: ${diae[cont]}, dia de saída: ${dias[cont]}`)
+                        }
+                    }
+                } else {
+                    console.log('Hotel não encontrado')
+                }
+            } else if (res3 == 'sim' && cr < 1) {
+                console.log('Reservas não encontradas')
+            }
+
+            res4 = window.prompt('Procurar reservas pelo nome do responsável? ')
+
+            if (res4 == 'sim'){
+                nr = window.prompt('Insira o nome: ')
+                sp = search_p(nr, nomer, cr)
+                
+                if (sp > 0) {
+
+                    for (let cont = 0; cont <= cr; cont++){
+                        if(nomer[cont] == nomer[sp]) {
+                            console.log(`Essa pessoa tem reserva no hotel ${hot[cont]}, o dia de entrada: ${diae[cont]} e dia de saída: ${dias[cont]}`)
+                        }
+                    }
+                }
+            }
+
+            res5 = window.prompt('Procurar hotel por categoria?')
+
+            if (res5 == 'sim'){
+                rp = window.prompt('Insira a Categoria: ')
+                cl = search_cat(rp, cath, c)
+                let cat 
+
+                for (let cont = 0; cont <= c; cont++){
+                    cat = cl[cont]
+                    
+
+                    if (cat > 0) {
+                        console.log(nomeh[cat])
+                    }
+                }
+            }
+            
+            res6 = window.prompt('Atualizar Telefone do Hotel?')
+
+            if (res6 == 'sim'){
+                rt = window.prompt('Insira o novo número de Telefone do Hotel: ')
+                it = window.prompt('Insira o Id do Hotel: ')
+                tl = atual_tel(rt, telh, it, idh, c) 
+                
+                if (tl > 0) {
+                    console.log(`O telefone do hotel ${nomeh[tl]} foi atualizado com sucesso!`)
+                    console.log(`O novo número de Telefone é: ${telh[tl]}`)
+                } else {
+                    console.log(`Não foi possível encontrar o telefone do Hotel.`)
+                }
+            }
+        }
+
+        console.log(idh)
+        console.log(idr)
+        
+    </script>
+</body>
+</html>
