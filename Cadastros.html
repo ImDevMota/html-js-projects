@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        
+        var c = 0
+        var nome = []
+        var senha = []
+        var login_s
+        var login_n
+        
+        nome[0] = window.prompt('Insira um nome: ')
+        senha[0] = window.prompt('Insira uma senha: ')
+        
+        while (res != 0) {
+            
+            var res = window.prompt('Digite um número, se deseja cadastrar (1), fazer login (2), excluir um cadastro (3), encerrar (0)')
+            if (res == 1) {
+                c++
+                nome[c] = window.prompt('Insira um nome: ')
+                senha[c] = window.prompt('Insira uma senha: ')
+            } else if (res == 2) {
+                login_n = window.prompt('Insira o nome do usuário cadastrado: ')
+                login_s = window.prompt('Insira a senha cadastrada: ')
+                let ret = 0
+                
+                for (let ct = 0; ct <= c; ct++) {
+                    
+                    if (login_n == nome[ct] && login_s == senha[ct]){
+                        ret = 1
+                        break   
+                    } else {
+                        ret = 0
+                    }
+                }
+
+                if (ret == 1) {
+                    console.log('Login feito com sucesso!')
+                    
+                } else if (ret == 0) {
+                    console.log('Nome ou senha incorretos!')
+                }
+            } else if (res == 3){
+                var excluir = window.prompt('Insira o nome do cadastro que deseja excluir: ')  
+                let ret = 0
+                var nom 
+                var sen
+                
+                for (let ct = 0; ct <= c; ct++){
+                    
+                    if (excluir == nome[ct]){
+                        sen = senha.indexOf(senha[ct])
+                        nome.splice(nom, 1)
+                        senha.splice(sen, 1)
+                        ret = 1 
+                        break
+                    } else {
+                        ret = 0
+                    }
+                }
+
+                console.log(nome)
+                console.log(senha)
+                console.log(ret)
+                if (ret == 1) {
+                    console.log('Cadastro excluído com sucesso!')
+                } else if (ret == 0){
+                    console.log('Cadastro não encontrado.')
+                }
+            }
+            
+        }
+    </script>
+</body>
+</html>
